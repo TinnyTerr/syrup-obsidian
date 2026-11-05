@@ -42,6 +42,14 @@ jobs:
         working-directory: build
         run: bun build plugin/main.ts --outfile main.js --target node --format cjs -e obsidian -e electron
 
+      - name: Generate artifact attestation
+        uses: actions/attest@v4
+        with:
+          subject-path: |
+            main.js
+            manifest.json
+            styles.css
+
       - name: Publish
         run: |
           cp build/main.js .
