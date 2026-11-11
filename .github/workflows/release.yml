@@ -43,8 +43,11 @@ jobs:
         working-directory: build
         run: bun build plugin/main.ts --outfile main.js --target node --format cjs -e obsidian -e electron
 
+      - name: Place built main.js beside the release assets
+        run: cp build/main.js .
+
       - name: Generate artifact attestation
-        uses: actions/attest@v4
+        uses: actions/attest-build-provenance@v2
         with:
           subject-path: |
             main.js
@@ -53,7 +56,6 @@ jobs:
 
       - name: Publish
         run: |
-          cp build/main.js .
           gh release create "${{ inputs.version }}" main.js manifest.json styles.css --title "${{ inputs.version }}" --generate-notes
         env:
           GH_TOKEN: ${{ github.token }}
