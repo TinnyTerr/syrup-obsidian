@@ -5,7 +5,7 @@ import {
 	MarkdownRenderer,
 	Plugin,
 } from "obsidian";
-import { run as runSrc } from "../src/index";
+import { run as runSrc } from "../src/syrup/index";
 import {
 	askPrismGrammar,
 	defineAskCm5Mode,
